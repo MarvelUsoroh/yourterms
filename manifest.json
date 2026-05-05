@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "yourTerms — Legal Transparency Agent",
+  "short_name": "yourTerms",
+  "version": "1.0.0",
+  "description": "Understand what you're agreeing to before you click Accept. Instant GDPR analysis of Terms & Conditions.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup/index.html",
+    "default_title": "yourTerms — Analyse this page's Terms & Conditions",
+    "default_icon": {
+      "16": "assets/icon-16.png",
+      "48": "assets/icon-48.png",
+      "128": "assets/icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content/detector.js",
+        "content/highlighter.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' https://generativelanguage.googleapis.com https://*.supabase.co;"
+  },
+  "icons": {
+    "16": "assets/icon-16.png",
+    "48": "assets/icon-48.png",
+    "128": "assets/icon-128.png"
+  }
+}

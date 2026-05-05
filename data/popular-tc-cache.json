@@ -1,0 +1,219 @@
+[
+  {
+    "domain": "facebook.com",
+    "urlHash": "meta0001",
+    "risk_score": 82,
+    "risk_level": "danger",
+    "clauses_checked": 38,
+    "flags": [
+      {
+        "category": "CONTENT_OWNERSHIP",
+        "risk_level": "high",
+        "gdpr_article": "Art. 17",
+        "excerpt": "you grant us a non-exclusive, transferable, sub-licensable, royalty-free, and worldwide license",
+        "explanation": "Meta can use, share, and sublicense anything you post — forever, royalty-free — which may conflict with your right to erasure."
+      },
+      {
+        "category": "UNILATERAL_CHANGE",
+        "risk_level": "high",
+        "gdpr_article": "Art. 5 & 13",
+        "excerpt": "We can change these terms, and if we do, we'll let you know",
+        "explanation": "Continued use of the platform after a change means you automatically accept the new terms, even if you didn't read them."
+      },
+      {
+        "category": "UNILATERAL_TERMINATION",
+        "risk_level": "medium",
+        "gdpr_article": "Art. 21",
+        "excerpt": "We can remove or restrict access to your content, services, or information",
+        "explanation": "Meta can suspend your account and restrict your content at their discretion, with limited recourse available to you."
+      }
+    ],
+    "tcUrl": "https://www.facebook.com/legal/terms",
+    "note": "Pre-built analysis — based on Meta Terms of Service (2024). Re-analyse for latest version."
+  },
+  {
+    "domain": "tiktok.com",
+    "urlHash": "tiktok01",
+    "risk_score": 78,
+    "risk_level": "danger",
+    "clauses_checked": 31,
+    "flags": [
+      {
+        "category": "CONTENT_OWNERSHIP",
+        "risk_level": "high",
+        "gdpr_article": "Art. 17",
+        "excerpt": "you grant TikTok an unconditional, irrevocable, non-exclusive, royalty-free, fully transferable worldwide licence",
+        "explanation": "TikTok can use any content you post, anywhere in the world, forever. This broad license may prevent full deletion of your content."
+      },
+      {
+        "category": "JURISDICTION",
+        "risk_level": "high",
+        "gdpr_article": "Art. 77",
+        "excerpt": "any disputes will be resolved by binding arbitration on an individual basis",
+        "explanation": "You give up your right to sue TikTok in court or join a class action. Disputes go to arbitration instead — on their terms."
+      },
+      {
+        "category": "UNILATERAL_CHANGE",
+        "risk_level": "medium",
+        "gdpr_article": "Art. 5 & 13",
+        "excerpt": "We reserve the right to modify these Terms at any time",
+        "explanation": "TikTok can change the rules whenever they want. Continuing to use the app is treated as acceptance."
+      }
+    ],
+    "tcUrl": "https://www.tiktok.com/legal/page/eea/terms-of-service/en",
+    "note": "Pre-built analysis — TikTok Terms of Service (EEA, 2024). Does not cover the Privacy Policy — click Re-analyse on the Privacy Policy page for a fresh analysis."
+  },
+  {
+    "domain": "instagram.com",
+    "urlHash": "instgrm1",
+    "risk_score": 80,
+    "risk_level": "danger",
+    "clauses_checked": 29,
+    "flags": [
+      {
+        "category": "CONTENT_OWNERSHIP",
+        "risk_level": "high",
+        "gdpr_article": "Art. 17",
+        "excerpt": "you grant us a non-exclusive, royalty-free, transferable, sub-licensable, worldwide license",
+        "explanation": "Instagram (Meta) can use, share and sublicense your photos and videos. This broad license may outlast your account deletion."
+      },
+      {
+        "category": "UNILATERAL_TERMINATION",
+        "risk_level": "high",
+        "gdpr_article": "Art. 21",
+        "excerpt": "We can remove any content or information you share on our Services if we believe it violates these Terms",
+        "explanation": "Instagram can delete your content or account for violating broadly-defined community standards, with limited appeal options."
+      }
+    ],
+    "tcUrl": "https://help.instagram.com/581066165581870",
+    "note": "Pre-built analysis — Instagram shares T&Cs with Meta (2024)."
+  },
+  {
+    "domain": "youtube.com",
+    "urlHash": "youtube1",
+    "risk_score": 65,
+    "risk_level": "danger",
+    "clauses_checked": 44,
+    "flags": [
+      {
+        "category": "CONTENT_OWNERSHIP",
+        "risk_level": "high",
+        "gdpr_article": "Art. 17",
+        "excerpt": "you grant YouTube a worldwide, non-exclusive, royalty-free, sublicensable and transferable license",
+        "explanation": "YouTube can use your videos across all Google services. The license survives even if you delete your content."
+      },
+      {
+        "category": "UNILATERAL_TERMINATION",
+        "risk_level": "medium",
+        "gdpr_article": "Art. 21",
+        "excerpt": "YouTube reserves the right to discontinue any aspect of the YouTube Service at any time",
+        "explanation": "Google can shut down features or your channel with notice, but the decision is entirely theirs."
+      },
+      {
+        "category": "LIMITATION_OF_LIABILITY",
+        "risk_level": "medium",
+        "gdpr_article": "Art. 82",
+        "excerpt": "YouTube is not responsible for the accuracy, usefulness, safety, or intellectual property rights",
+        "explanation": "YouTube limits its liability for third-party content and technical failures. Your compensation rights may be restricted."
+      }
+    ],
+    "tcUrl": "https://www.youtube.com/t/terms",
+    "note": "Pre-built analysis — YouTube Terms of Service (2024)."
+  },
+  {
+    "domain": "youtube.com",
+    "urlHash": "ytpriv01",
+    "risk_score": 70,
+    "risk_level": "danger",
+    "clauses_checked": 36,
+    "flags": [
+      {
+        "category": "CONTENT_OWNERSHIP",
+        "risk_level": "high",
+        "gdpr_article": "Art. 17",
+        "excerpt": "YouTube may collect information about you from third parties and combine that with information we collect about you",
+        "explanation": "Google combines your YouTube activity with data from other Google services and third parties to build an extensive profile, limiting your practical right to erasure."
+      },
+      {
+        "category": "JURISDICTION",
+        "risk_level": "high",
+        "gdpr_article": "Art. 77",
+        "excerpt": "your information may be processed in the United States or any other country in which Google or its agents maintain facilities",
+        "explanation": "Your data is transferred outside the EEA to the US and other countries. GDPR Art. 46 safeguards apply, but enforcement against US authorities remains limited."
+      },
+      {
+        "category": "UNILATERAL_CHANGE",
+        "risk_level": "medium",
+        "gdpr_article": "Art. 5 & 13",
+        "excerpt": "We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page",
+        "explanation": "Google can update its privacy terms unilaterally. A banner notification does not require your active consent to the new terms."
+      },
+      {
+        "category": "CONTENT_OWNERSHIP",
+        "risk_level": "medium",
+        "gdpr_article": "Art. 17",
+        "excerpt": "we retain certain information you share with us even after you delete your account",
+        "explanation": "Some data persists after account deletion — this may conflict with your GDPR right to erasure (Art. 17)."
+      }
+    ],
+    "tcUrl": "https://policies.google.com/privacy",
+    "note": "Pre-built analysis — YouTube/Google Privacy Policy (2024). Re-analyse for the latest version."
+  },
+  {
+    "domain": "x.com",
+    "urlHash": "twitter1",
+    "risk_score": 72,
+    "risk_level": "danger",
+    "clauses_checked": 27,
+    "flags": [
+      {
+        "category": "CONTENT_OWNERSHIP",
+        "risk_level": "high",
+        "gdpr_article": "Art. 17",
+        "excerpt": "you grant us a worldwide, non-exclusive, royalty-free license with the right to sublicense",
+        "explanation": "X/Twitter can use your tweets, images, and videos anywhere — including for training AI — though you retain ownership."
+      },
+      {
+        "category": "UNILATERAL_CHANGE",
+        "risk_level": "medium",
+        "gdpr_article": "Art. 5 & 13",
+        "excerpt": "We may revise these Terms from time to time",
+        "explanation": "X can update its terms at any time. You'll be notified, but continued use means acceptance of the new terms."
+      },
+      {
+        "category": "JURISDICTION",
+        "risk_level": "high",
+        "gdpr_article": "Art. 77",
+        "excerpt": "Any disputes will be resolved by arbitration in San Francisco, California",
+        "explanation": "Disputes must go to arbitration in California, far from most users. Class action lawsuits are not permitted."
+      }
+    ],
+    "tcUrl": "https://x.com/en/tos",
+    "note": "Pre-built analysis — X (Twitter) Terms of Service (2024)."
+  },
+  {
+    "domain": "spotify.com",
+    "urlHash": "spotify1",
+    "risk_score": 45,
+    "risk_level": "caution",
+    "clauses_checked": 32,
+    "flags": [
+      {
+        "category": "UNILATERAL_CHANGE",
+        "risk_level": "medium",
+        "gdpr_article": "Art. 5 & 13",
+        "excerpt": "We may make changes to these Terms from time to time",
+        "explanation": "Spotify can update terms with notice. Continued use after the effective date means acceptance."
+      },
+      {
+        "category": "LIMITATION_OF_LIABILITY",
+        "risk_level": "medium",
+        "gdpr_article": "Art. 82",
+        "excerpt": "to the extent permitted under applicable law, Spotify shall not be liable",
+        "explanation": "Spotify limits its liability for service disruptions and data issues to the maximum extent the law allows."
+      }
+    ],
+    "tcUrl": "https://www.spotify.com/legal/end-user-agreement/",
+    "note": "Pre-built analysis — Spotify Terms of Service (2024). Relatively balanced compared to social platforms."
+  }
+]

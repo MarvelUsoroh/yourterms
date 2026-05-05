@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=380">
+  <title>yourTerms</title>
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/typography.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+
+<div class="popup-shell">
+
+  <!-- ── Header ─────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header__brand">
+      <!-- Back button (chat view only) -->
+      <button class="header__back-btn" id="btn-back" aria-label="Back to results">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Results
+      </button>
+      <!-- Logo + wordmark -->
+      <img src="../assets/icon-48.png" class="header__logo" alt="" aria-hidden="true" />
+      <span class="header__wordmark">yourTerms</span>
+    </div>
+
+    <!-- Current domain -->
+    <span class="header__domain" id="header-domain">—</span>
+
+    <!-- Risk badge (hidden until analysis complete) -->
+    <div id="header-risk-badge" style="display:none" role="status" aria-live="polite"></div>
+
+    <!-- Settings button -->
+    <button id="btn-settings" aria-label="Settings" style="background:none;border:none;cursor:pointer;color:var(--text-tertiary);padding:4px;border-radius:var(--radius-sm);display:flex;align-items:center;transition:color var(--duration-fast)" title="API Settings">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+    </button>
+  </header>
+
+  <!-- ── Content area ───────────────────────────────────────── -->
+  <main class="content-area" id="content-area" role="main">
+
+    <!-- VIEW: Idle ─────────────────────────────────────────── -->
+    <div class="view active idle-view" data-view="idle" aria-label="No Terms & Conditions detected">
+      <img src="../assets/icon-128.png" class="idle-view__logo" alt="" aria-hidden="true" />
+      <p class="idle-view__title">No T&C detected</p>
+      <p class="idle-view__subtitle">
+        Navigate to a Terms &amp; Conditions or Privacy Policy page and yourTerms will
+        analyse it automatically.
+      </p>
+      
+      <button class="btn" id="btn-retry" style="margin:var(--space-3) auto;display:none">
+        Try again
+      </button>
+
+      <div class="paste-area" style="width:100%">
+        <textarea
+          class="paste-area__textarea"
+          id="paste-input"
+          placeholder="Or paste Terms &amp; Conditions text here..."
+          aria-label="Paste Terms and Conditions text"
+          rows="4"
+        ></textarea>
+        <div class="paste-area__footer">
+          <button class="btn btn--primary" id="btn-analyse-paste" disabled>
+            Analyse
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: Loading ──────────────────────────────────────── -->
+    <div class="view" data-view="loading" aria-label="Analysis in progress" aria-live="polite">
+      <div class="loading-view">
+        <p class="loading-view__status" id="loading-status">Reading the page…</p>
+
+        <div id="stage-list" style="margin-bottom:var(--space-4)">
+          <div class="loading-view__stage" data-stage="fetch">
+            <span class="stage-icon stage-icon--active" id="icon-fetch"></span>
+            <span id="label-fetch">Fetching text...</span>
+          </div>
+          <div class="loading-view__stage" data-stage="identify">
+            <span class="stage-icon stage-icon--pending" id="icon-identify"></span>
+            <span id="label-identify">Identifying clauses...</span>
+          </div>
+          <div class="loading-view__stage" data-stage="assess">
+            <span class="stage-icon stage-icon--pending" id="icon-assess"></span>
+            <span id="label-assess">Assessing risk...</span>
+          </div>
+        </div>
+
+        <!-- Skeleton cards -->
+        <div class="skeleton-block" style="height:100px;margin-bottom:10px"></div>
+        <div class="skeleton-block" style="height:100px;margin-bottom:10px"></div>
+        <div class="skeleton-block" style="height:80px"></div>
+      </div>
+    </div>
+
+    <!-- VIEW: Results ──────────────────────────────────────── -->
+    <div class="view" data-view="results" aria-label="Analysis results">
+      <!-- Risk hero -->
+      <section class="risk-hero" aria-labelledby="risk-score-label">
+        <div class="risk-hero__top">
+          <span class="risk-hero__score" id="risk-score" aria-live="polite">—</span>
+          <span class="risk-hero__label" id="risk-label"></span>
+          <span id="cache-badge" style="margin-left:auto"></span>
+        </div>
+        <div class="risk-hero__bar-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="risk-bar-track">
+          <div class="risk-hero__bar-fill" id="risk-bar-fill"></div>
+        </div>
+        <p class="risk-hero__meta" id="risk-meta"></p>
+        <div id="jurisdiction-badge" style="margin-top:var(--space-2)"></div>
+        <div style="margin-top:var(--space-3);display:flex;gap:var(--space-2)">
+          <button class="btn" id="btn-highlight" style="font-size:var(--text-xs);padding:4px 10px" title="Highlight flagged clauses on the page" aria-label="Show flagged clauses on the page">
+            View on page <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-left:1px"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </button>
+          <button class="btn" id="btn-open-chat" style="font-size:var(--text-xs);padding:4px 10px" aria-label="Open AI Chat">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:2px"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> 
+            Chat
+          </button>
+          <button class="btn" id="btn-reanalyse" style="font-size:var(--text-xs);padding:4px 10px" aria-label="Re-run analysis">
+            Re-analyse
+          </button>
+        </div>
+      </section>
+
+      <!-- Flagged clauses -->
+      <div id="flags-container" role="list" aria-label="Flagged clauses"></div>
+
+      <!-- Clean section -->
+      <div id="clean-container" style="display:none">
+        <p class="section-label">No issues flagged</p>
+        <div class="state-card state-card--clean" role="status">
+          <p class="state-card__title">Nothing flagged</p>
+          <p class="state-card__body" id="clean-text"></p>
+        </div>
+      </div>
+
+      <!-- Bottom padding -->
+      <div style="height:var(--space-4)"></div>
+    </div>
+
+    <!-- VIEW: Chat ─────────────────────────────────────────── -->
+    <div class="view" data-view="chat" aria-label="Chat about this contract">
+      <div class="message-list" id="message-list" role="log" aria-label="Conversation" aria-live="polite">
+        <!-- Messages inserted here by JS -->
+      </div>
+    </div>
+
+    <!-- VIEW: Settings ─────────────────────────────────────── -->
+    <div class="view" data-view="settings" aria-label="Settings">
+      <div class="settings-view">
+        <p class="section-label">API Configuration</p>
+
+        <div class="settings-field">
+          <label for="input-gemini-key">Gemini API Key</label>
+          <input type="password" id="input-gemini-key"
+                 placeholder="AIza..." autocomplete="off" spellcheck="false">
+          <p class="settings-field__hint">
+            Get your free API key at <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--primary);text-decoration:none">Google AI Studio</a>.
+          </p>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:var(--space-3)">
+          <button class="btn btn--primary" id="btn-save-keys">Save key</button>
+          <span class="settings-saved" id="settings-saved"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:2px"><path d="M20 6L9 17l-5-5"/></svg>Saved</span>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── Chat input bar (always visible) ────────────────────── -->
+  <div class="chat-bar" role="search" aria-label="Ask about this contract">
+    <div class="chat-bar__inner">
+      <textarea
+        class="chat-bar__input"
+        id="chat-input"
+        placeholder="Ask about this contract…"
+        rows="1"
+        aria-label="Ask a question about the Terms and Conditions"
+        disabled
+      ></textarea>
+      <button class="chat-bar__send" id="btn-send" disabled aria-label="Send message">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M7 12V2M3 6l4-4 4 4"
+                stroke="white" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+</div><!-- /.popup-shell -->
+
+<script type="module" src="popup.js"></script>
+</body>
+</html>

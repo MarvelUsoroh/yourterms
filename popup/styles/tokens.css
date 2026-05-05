@@ -1,0 +1,135 @@
+/* popup/styles/tokens.css */
+/* Design tokens — full system from DESIGN.md */
+
+:root {
+  /* ── Surfaces ────────────────────────────────────────────── */
+  --surface-base:        #FAFAF9;
+  --surface-raised:      #FFFFFF;
+  --surface-sunken:      #F5F5F4;
+  --surface-overlay:     rgba(0, 0, 0, 0.04);
+
+  /* ── Borders ─────────────────────────────────────────────── */
+  --border-default:      #E4E3DF;
+  --border-strong:       #6D28D9;
+
+  /* ── Text ────────────────────────────────────────────────── */
+  --text-primary:        #1d1a24;
+  --text-secondary:      #4a4455;
+  --text-tertiary:       #7b7486;
+  --text-inverse:        #ffffff;
+
+  /* ── Brand ───────────────────────────────────────────────── */
+  --brand-primary:       #5300b7;
+  --brand-secondary:     #6D28D9;
+
+  /* ── Risk — Safe (Green) ─────────────────────────────────── */
+  --risk-safe:           #1A7F4B;
+  --risk-safe-bg:        #ECFBF3;
+  --risk-safe-border:    #A0DFC0;
+
+  /* ── Risk — Caution (Amber) ──────────────────────────────── */
+  --risk-caution:        #B45309;
+  --risk-caution-bg:     #FFFBEB;
+  --risk-caution-border: #FCD34D;
+
+  /* ── Risk — Danger (Red) ─────────────────────────────────── */
+  --risk-danger:         #ba1a1a;
+  --risk-danger-bg:      #ffdad6;
+  --risk-danger-border:  #ffdad6;
+
+  /* ── GDPR category pill colours ──────────────────────────── */
+  --gdpr-change:           #6D28D9;
+  --gdpr-change-bg:        #f3ebf9;
+  --gdpr-terminate:        #B45309;
+  --gdpr-terminate-bg:     #FFFBEB;
+  --gdpr-liability:        #ba1a1a;
+  --gdpr-liability-bg:     #ffdad6;
+  --gdpr-ownership:        #0369A1;
+  --gdpr-ownership-bg:     #F0F9FF;
+  --gdpr-jurisdiction:     #065F46;
+  --gdpr-jurisdiction-bg:  #ECFDF5;
+
+  /* ── Chat bubbles ────────────────────────────────────────── */
+  --chat-user-bg:        #1d1a24;
+  --chat-user-text:      #ffffff;
+  --chat-ai-bg:          #e8e0ee;
+  --chat-ai-text:        #1d1a24;
+
+  /* ── Spacing ─────────────────────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+  /* ── Border radius ───────────────────────────────────────── */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
+  --radius-full: 999px;
+
+  /* ── Shadow ──────────────────────────────────────────────── */
+  --shadow-card: 0px 1px 2px rgba(0,0,0,0.05);
+
+  /* ── Transitions ─────────────────────────────────────────── */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+
+  /* ── Type scale ──────────────────────────────────────────── */
+  --text-xs:   11px;
+  --text-sm:   12px;
+  --text-base: 13px;
+  --text-md:   14px;
+  --text-lg:   16px;
+  --text-xl:   22px;
+
+  --weight-normal: 400;
+  --weight-medium: 500;
+}
+
+/* ── Dark mode ───────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface-base:      #161614;
+    --surface-raised:    #1F1F1C;
+    --surface-sunken:    #2A2A27;
+    --surface-overlay:   rgba(255,255,255,0.04);
+
+    --border-default:    #2E2E2A;
+    --border-strong:     #3E3E3A;
+
+    --text-primary:      #F0EFEB;
+    --text-secondary:    #9E9D99;
+    --text-tertiary:     #6B6A66;
+    --text-inverse:      #1A1917;
+
+    --risk-safe:         #34D399;
+    --risk-safe-bg:      #052E16;
+    --risk-safe-border:  #065F46;
+
+    --risk-caution:      #FCD34D;
+    --risk-caution-bg:   #1C1400;
+    --risk-caution-border:#92400E;
+
+    --risk-danger:       #FC8A7C;
+    --risk-danger-bg:    #1F0905;
+    --risk-danger-border:#7F1D1D;
+
+    --gdpr-change-bg:        #1E1B4B;
+    --gdpr-terminate-bg:     #1C1400;
+    --gdpr-liability-bg:     #1F0905;
+    --gdpr-ownership-bg:     #0C1A2E;
+    --gdpr-jurisdiction-bg:  #052E16;
+
+    --chat-user-bg:      #F0EFEB;
+    --chat-user-text:    #1A1917;
+    --chat-ai-bg:        #2A2A27;
+    --chat-ai-text:      #F0EFEB;
+
+    --shadow-card: 0 1px 3px rgba(0,0,0,0.4);
+  }
+}
