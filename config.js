@@ -25,8 +25,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const CONFIG = {
-  SUPABASE_URL: 'YOUR_SUPABASE_PROJECT_URL',
-  SUPABASE_ANON_KEY: 'YOUR_SUPABASE_ANON_KEY',
+  SUPABASE_URL: 'https://wrbnkyhpuynepszchyyh.supabase.co',
+  SUPABASE_ANON_KEY: 'sb_publishable_vGCjQnNjMR6f5DOWto7etg_FMlUyCwt',
 
   // Cache TTL in days — analyses older than this are considered stale
   CACHE_TTL_DAYS: 30,

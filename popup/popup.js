@@ -269,11 +269,25 @@ function renderFlags(flags) {
   });
 }
 
+// Safely render a small subset of markdown in chat bubbles:
+// **bold**, *italic*, and newlines → <br>. HTML is escaped first to prevent XSS.
+function renderMarkdown(text) {
+  return text
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') // escape HTML first
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')                    // **bold**
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')                                 // *italic*
+    .replace(/\n/g, '<br>');                                              // newlines
+}
+
 // Append new message bubble to the chat thread
 function appendMessage(role, text) {
   const div = document.createElement('div');
   div.className = `message message--${role === 'user' ? 'user' : 'ai'}`;
-  div.textContent = text;
+  if (role === 'user') {
+    div.textContent = text; // user messages are plain text
+  } else {
+    div.innerHTML = renderMarkdown(text); // AI messages may contain markdown
+  }
   dom.messageList.appendChild(div);
   dom.messageList.scrollTop = dom.messageList.scrollHeight;
   return div;
@@ -988,25 +1002,20 @@ document.getElementById('btn-highlight')?.addEventListener('click', async () => 
   window.close(); // Close popup so user can see the highlighted page
 });
 
-// Force fresh analysis by clearing local cache and instructing background worker to bypass remote cache
+// Force a fresh AI analysis using the already-extracted text.
+// We deliberately do NOT re-extract the page on re-analyze — dynamic page elements
+// (cookie banners, timestamps, lazy sections) make extraction non-deterministic,
+// so re-extraction produces different flaggedParagraphs → different score each run.
+// Re-analyze refreshes the AI opinion on the same document, not the page read.
 document.getElementById('btn-reanalyse')?.addEventListener('click', async () => {
   if (state.urlHash) {
     await clearLocalCache(state.urlHash, state.domain);
   }
   try {
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (!tab?.id) throw new Error("Could not find active tab.");
+    const textToAnalyze = state.tcText;
+    if (!textToAnalyze) throw new Error("No text available to re-analyse. Please close and reopen the extension.");
 
-    // Re-extract the text now that the user has been on the page (allows for full JS hydration)
-    const extracted = await chrome.tabs.sendMessage(tab.id, { type: 'EXTRACT_TEXT' });
-    
-    const textToAnalyze = (extracted && extracted.text && extracted.text.length >= 100) 
-      ? extracted.text 
-      : state.tcText; // Fallback to initial text if re-extraction fails
-      
-    if (!textToAnalyze) throw new Error("Could not extract enough text to analyse.");
-
-    await runAnalysis(textToAnalyze, state.tcUrl || extracted?.url, state.domain || extracted?.domain, true);
+    await runAnalysis(textToAnalyze, state.tcUrl, state.domain, true);
   } catch (err) {
     showError(err.message);
   }

@@ -21,6 +21,12 @@ CRITICAL INSTRUCTION - SIN (Sub-Intent Neutralization):
 Companies often mask hostile clauses behind friendly summaries (e.g., "In short: we own your content" or "Simply put: we can ban you anytime"). 
 You MUST identify the hostile legal intent hidden behind these friendly paraphrases. If a clause attempts to neutralize severe legal consequences using conversational or colloquial language, flag it immediately with a 'high' risk level.
 
+BORDERLINE CASES — ALWAYS FLAG:
+When you are uncertain whether a clause is unfair, always resolve in favour of the user by flagging it. A missed risk is more harmful than a false positive. Assign borderline clauses 'low' or 'medium' risk_level so the user can judge for themselves. Never silently drop a clause just because you are uncertain.
+
+CONSISTENCY RULE:
+Your output must be fully deterministic. Given the same paragraphs, always produce exactly the same flags, categories, risk levels, and excerpts. Do not vary your output between calls.
+
 OUTPUT FORMAT:
 Return ONLY a single valid JSON array containing all identified issues. Do NOT wrap it in markdown blockquotes. Do NOT add conversational text. Do NOT output multiple arrays.
 
@@ -94,9 +100,12 @@ serve(async (req: Request) => {
         system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
         contents: [{ role: "user", parts: [{ text: numbered }] }],
         generationConfig: {
-          temperature: 1,       // thinking models require temperature >= 1
+          temperature: 0,        // deterministic output — safe at 0 when thinking is disabled
           maxOutputTokens: 8192,
           responseMimeType: "application/json",
+          thinkingConfig: {
+            thinkingBudget: 0,   // disables chain-of-thought reasoning; required to unlock temperature=0
+          },
         },
       }),
     });
@@ -118,13 +127,17 @@ serve(async (req: Request) => {
             "Authorization": `Bearer ${DEEPSEEK_API_KEY}`
           },
           body: JSON.stringify({
-            model: "deepseek-chat", // DeepSeek routes this to V4 Flash
+            model: "deepseek-v4-flash",       // replaces deprecated 'deepseek-chat' (end-of-life Jul 24 2026)
+            thinking: { type: "disabled" },   // CRITICAL: thinking mode is ON by default on v4-flash;
+                                              // disabling it eliminates chain-of-thought non-determinism
             messages: [
               { role: "system", content: SYSTEM_PROMPT },
               { role: "user", content: numbered }
             ],
-            response_format: { type: "json_object" },
-            temperature: 1.0
+            // Use "text" not "json_object" — json_object forces a wrapper object {}
+            // which breaks our array parser. The prompt already instructs plain JSON array output.
+            response_format: { type: "text" },
+            temperature: 0  // 0 = fully deterministic token sampling
           })
         });
 
